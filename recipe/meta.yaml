@@ -35,6 +35,7 @@ test:
   requires:
     - pip
     - mypy
+    - requests >=2.31.0,<3.0.0
     - types-pyyaml
     - types-requests
 
