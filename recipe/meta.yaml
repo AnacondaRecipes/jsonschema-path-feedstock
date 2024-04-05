@@ -39,9 +39,16 @@ test:
 
 about:
   home: https://github.com/p1c2u/jsonschema-path
+  description: |
+    JSONSchema Spec with object-oriented paths
+    - Traverse schema like paths
+    - Access schema on demand with separate dereferencing accessor layer
   summary: JSONSchema Spec with object-oriented paths
   license: Apache-2.0
   license_file: LICENSE
+  license_family: Apache
+  dev_url: https://github.com/p1c2u/jsonschema-path
+  doc_url: https://github.com/p1c2u/jsonschema-path
 
 extra:
   recipe-maintainers:
