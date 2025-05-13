@@ -1,17 +1,18 @@
-{% set version = "0.3.2" %}
+{% set name = "jsonschema-path" %}
+{% set version = "0.3.4" %}
 
 package:
-  name: jsonschema-path
+  name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/j/jsonschema-path/jsonschema_path-{{ version }}.tar.gz
-  sha256: 4d0dababf341e36e9b91a5fb2a3e3fd300b0150e7fe88df4e55cc8253c5a3989
+  url: https://github.com/p1c2u/{{ name }}/archive/refs/tags/{{ version }}.tar.gz
+  sha256: 71b7e165c7ee86c346593e2ac21b5beafc9bbaac337ef053df028e8827469950
 
 build:
-  skip: True # [py<38]
-  script: {{ PYTHON }} -m pip install . -vv --no-deps --ignore-installed --no-build-isolation
   number: 0
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --ignore-installed --no-build-isolation
+  skip: True # [py<38]
 
 requirements:
   host:
@@ -22,20 +23,23 @@ requirements:
     - pathable >=0.4.1,<0.5.0
     - python
     - pyyaml >=5.1
-    - referencing >=0.28.0,<0.32.0
-    - requests >=2.31.0,<3.0.0
+    - referencing <0.37.0
+    - requests <3.0.0,>=2.31.0
 
 test:
+  source_files:
+    - tests
+    - pyproject.toml
   imports:
     - jsonschema_path
   commands:
     - pip check
-    - mypy -p jsonschema_path
+    - pytest -v tests
   requires:
     - pip
-    - mypy
-    - types-pyyaml
-    - types-requests
+    - pytest
+    - pytest-cov >=5.0.0
+    - responses >=0.25.0
 
 about:
   home: https://github.com/p1c2u/jsonschema-path
@@ -48,7 +52,7 @@ about:
   license_file: LICENSE
   license_family: Apache
   dev_url: https://github.com/p1c2u/jsonschema-path
-  doc_url: https://github.com/p1c2u/jsonschema-path
+  doc_url: https://github.com/p1c2u/jsonschema-path/blob/main/README.rst
 
 extra:
   recipe-maintainers:
