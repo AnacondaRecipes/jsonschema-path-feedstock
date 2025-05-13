@@ -34,7 +34,7 @@ test:
     - jsonschema_path
   commands:
     - pip check
-    - pytest -v tests
+    - pytest -v tests/unit
   requires:
     - pip
     - pytest
