@@ -41,9 +41,12 @@ test:
     - responses >=0.25.0
   commands:
     - pip check
-    # upstream tests build file:// URIs from native Windows paths, which urllib cannot parse
+    # upstream tests build file:// URIs by concatenating native Windows paths, so $ref resolution fails
     - pytest -vv tests  # [not win]
     - pytest -vv tests --deselect tests/integration/test_schema_path.py::TestSchemaPathOpen::test_file --deselect tests/integration/test_schema_path.py::TestSchemaPathOpen::test_ref_recursive  # [win]
+    # --deselect is a node-id prefix match, so the `test_file` entry also drops
+    # test_file_ref, which passes on Windows — run it explicitly
+    - pytest -vv tests/integration/test_schema_path.py::TestSchemaPathOpen::test_file_ref  # [win]
 
 about:
   home: https://github.com/p1c2u/jsonschema-path
