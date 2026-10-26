@@ -41,7 +41,9 @@ test:
     - responses >=0.25.0
   commands:
     - pip check
-    - pytest -vv tests
+    # upstream tests build file:// URIs from native Windows paths, which urllib cannot parse
+    - pytest -vv tests  # [not win]
+    - pytest -vv tests --deselect tests/integration/test_schema_path.py::TestSchemaPathOpen::test_file --deselect tests/integration/test_schema_path.py::TestSchemaPathOpen::test_ref_recursive  # [win]
 
 about:
   home: https://github.com/p1c2u/jsonschema-path
